@@ -5,7 +5,9 @@ export const fetchCurrentWeather = (city) => async (dispatch) => {
   try {
     dispatch({ type: WEATHER_ACTIONS.SET_LOADING, payload: true });
     
+    console.log(`Action: Fetching weather for ${city}`);
     const data = await weatherAPI.getCurrentWeather(city);
+    console.log(`Action: Received data for ${city}`, data);
     
     dispatch({
       type: WEATHER_ACTIONS.SET_WEATHER_DATA,
@@ -15,16 +17,19 @@ export const fetchCurrentWeather = (city) => async (dispatch) => {
     dispatch({ type: WEATHER_ACTIONS.SET_LOADING, payload: false });
     return data;
   } catch (error) {
+    console.error(`Action: Error fetching ${city}:`, error);
     dispatch({
       type: WEATHER_ACTIONS.SET_ERROR,
       payload: error.message,
     });
+    dispatch({ type: WEATHER_ACTIONS.SET_LOADING, payload: false });
     throw error;
   }
 };
 
 export const fetchForecast = (city, days = 7) => async (dispatch) => {
   try {
+    console.log(`Action: Fetching forecast for ${city}`);
     const data = await weatherAPI.getForecast(city, days);
     
     dispatch({
@@ -34,6 +39,7 @@ export const fetchForecast = (city, days = 7) => async (dispatch) => {
     
     return data;
   } catch (error) {
+    console.error(`Action: Error fetching forecast for ${city}:`, error);
     dispatch({
       type: WEATHER_ACTIONS.SET_ERROR,
       payload: error.message,
@@ -49,7 +55,9 @@ export const searchCities = (query) => async (dispatch) => {
       return [];
     }
     
+    console.log(`Action: Searching for "${query}"`);
     const results = await weatherAPI.searchCities(query);
+    console.log(`Action: Found ${results.length} results`);
     
     dispatch({
       type: WEATHER_ACTIONS.SET_SEARCH_RESULTS,
@@ -58,7 +66,7 @@ export const searchCities = (query) => async (dispatch) => {
     
     return results;
   } catch (error) {
-    console.error('Search error:', error);
+    console.error('Action: Search error:', error);
     return [];
   }
 };

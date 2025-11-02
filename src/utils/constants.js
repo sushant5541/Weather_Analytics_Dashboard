@@ -1,13 +1,27 @@
+const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+
+if (!API_KEY) {
+  console.warn('⚠️ WARNING: REACT_APP_WEATHER_API_KEY is not set in .env file!');
+}
+
 export const API_CONFIG = {
   BASE_URL: process.env.REACT_APP_WEATHER_API_BASE_URL || 'https://api.weatherapi.com/v1',
-  API_KEY: process.env.REACT_APP_WEATHER_API_KEY || '9c12733474244a11963142550251101',
-  CACHE_DURATION: parseInt(process.env.REACT_APP_CACHE_DURATION) || 60000, // 60 seconds
+  API_KEY: API_KEY,
+  CACHE_DURATION: parseInt(process.env.REACT_APP_CACHE_DURATION) || 60000,
 };
 
-export const DEFAULT_CITIES = [
-  { name: 'London', id: 1 },
-  { name: 'New York', id: 2 },
-  { name: 'Tokyo', id: 3 },
+// Popular Indian cities
+export const POPULAR_CITIES = [
+  { name: 'Mumbai', state: 'Maharashtra', emoji: '🌆' },
+  { name: 'Delhi', state: 'Delhi', emoji: '🏛️' },
+  { name: 'Bangalore', state: 'Karnataka', emoji: '💻' },
+  { name: 'Hyderabad', state: 'Telangana', emoji: '🏰' },
+  { name: 'Chennai', state: 'Tamil Nadu', emoji: '🏖️' },
+  { name: 'Kolkata', state: 'West Bengal', emoji: '🎭' },
+  { name: 'Pune', state: 'Maharashtra', emoji: '🎓' },
+  { name: 'Ahmedabad', state: 'Gujarat', emoji: '🕌' },
+  { name: 'Jaipur', state: 'Rajasthan', emoji: '🏰' },
+  { name: 'Surat', state: 'Gujarat', emoji: '💎' },
 ];
 
 export const TEMPERATURE_UNITS = {
